@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>购物车</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>购物车</h1>
+    <table id="cartTable">
+        <tr><th>商品</th><th>价格</th><th>操作</th></tr>
+    </table>
+    <button onclick="location.href='order.html'">去结算</button>
+
+    <script>
+        // 获取购物车数据
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const products = [
+            { id: 1, name: "商品A", price: 99 },
+            { id: 2, name: "商品B", price: 199 }
+        ];
+
+        // 渲染购物车
+        const table = document.getElementById('cartTable');
+        cart.forEach(productId => {
+            const product = products.find(p => p.id == productId);
+            table.innerHTML += `
+                <tr>
+                    <td>${product.name}</td>
+                    <td>¥${product.price}</td>
+                    <td><button onclick="removeFromCart(${productId})">删除</button></td>
+                </tr>
+            `;
+        });
+
+        // 删除商品
+        function removeFromCart(productId) {
+            let newCart = cart.filter(id => id !== productId);
+            localStorage.setItem('cart', JSON.stringify(newCart));
+            location.reload(); // 刷新页面
+        }
+    </script>
+</body>
+</html>

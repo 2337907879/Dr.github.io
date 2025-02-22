@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>确认订单</title>
+</head>
+<body>
+    <h1>填写订单信息</h1>
+    <form onsubmit="submitOrder(event)">
+        <label>姓名：<input type="text" required></label><br>
+        <label>地址：<input type="text" required></label><br>
+        <label>电话：<input type="tel" required></label><br>
+        <button type="submit">提交订单并支付</button>
+    </form>
+
+    <script>
+        function submitOrder(e) {
+            e.preventDefault();
+            // 生成支付链接（需替换为你的支付接口）
+            const paymentUrl = 'https://你的支付宝或微信支付链接';
+            localStorage.removeItem('cart'); // 清空购物车
+            window.location.href = paymentUrl;
+        }
+    </script>
+</body>
+</html>
